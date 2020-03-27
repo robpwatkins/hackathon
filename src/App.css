@@ -21,3 +21,8 @@ body, html {
 h6 {
   color: #61dafb;
 }
+
+h6:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
