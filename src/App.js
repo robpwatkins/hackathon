@@ -5,12 +5,12 @@ import ArticleList from './ArticleList';
 
 class App extends React.Component {
   state = {
-    listChoice: ''
+    listChoice: []
   }
 
   updateList = (props) => {
-    this.setState({ listChoice: props })
-    console.log(this.state.list);
+    this.setState({ listChoice: [...props] })
+    console.log(this.state.listChoice);
   }
 
   render () {
