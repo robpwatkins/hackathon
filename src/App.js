@@ -8,14 +8,6 @@ class App extends React.Component {
     listChoice: ''
   }
 
-  componentDidMount() {
-    fetch('http://hn.algolia.com/api/v1/search?query=foo&tags=story').then(response => {
-      return response.json();
-    }).then(json => {
-      console.log(json);
-    })
-  }
-
   updateList = (props) => {
     this.setState({ listChoice: props })
     console.log(this.state.list);
@@ -24,10 +16,8 @@ class App extends React.Component {
   render () {
   return (
     <div className="App">
-      <header className="App-header">
-        <Form updatelist={ this.updateList } />
-        <ArticleList listchoice={ this.state.listChoice } />
-      </header>
+      <Form updatelist={ this.updateList } />
+      <ArticleList listchoice={ this.state.listChoice } />
     </div>
   );
   }
