@@ -22,8 +22,8 @@ class ArticleList extends React.Component {
         return (
           <div key={i} className="article">
             <h3>{article.title}</h3>
-            <h4>Author: {article.author}</h4>
-            <h4>{article.url}</h4>
+            <h5>Author: {article.author}</h5>
+            <h6>{article.url}</h6>
           </div>
         )
       }) }
