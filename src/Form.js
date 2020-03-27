@@ -1,4 +1,5 @@
 import React from 'react';
+import ArticleList from './ArticleList';
 
 class Form extends React.Component {
   state = {
@@ -25,7 +26,7 @@ onSubmit = (event) => {
   this.setState({ query: event.target.value })
   // console.log(this.state.query);
   // this.props.updatelist(this.state.input);
-  this.props.updatelist(this.state.list);
+  // this.props.updatelist(this.state.list);
   this.fetchData();
   this.setState({ query: '' });
 
@@ -35,9 +36,10 @@ onSubmit = (event) => {
     return (
       <div>
         <form>
-          <input onChange={ event => this.updateInput(event) } placeholder="type something" value={this.state.query}></input>
+          <input onChange={ event => this.updateInput(event) } placeholder="Search by keyword" value={this.state.query}></input>
           <button onClick={ event => this.onSubmit(event) }>Submit</button>
         </form>
+        <ArticleList list={this.state.list} />
       </div>
     );
   }

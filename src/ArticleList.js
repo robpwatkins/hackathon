@@ -9,7 +9,7 @@ class ArticleList extends React.Component {
   render() {
   return (
     <div>
-      { this.props.listchoice.map((article, i) => {
+      { this.props.list.map((article, i) => {
         return (
           <div key={i} className="article">
             <h3>{article.title}</h3>

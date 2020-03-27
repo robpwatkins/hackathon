@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import Form from './Form';
-import ArticleList from './ArticleList';
+// import ArticleList from './ArticleList';
 
 class App extends React.Component {
   state = {
@@ -17,7 +17,6 @@ class App extends React.Component {
   return (
     <div className="App">
       <Form updatelist={ this.updateList } />
-      <ArticleList listchoice={ this.state.listChoice } />
     </div>
   );
   }
