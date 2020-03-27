@@ -1,9 +1,9 @@
 import React from 'react';
 
-function ArticleList() {
+function ArticleList(props) {
   return (
     <div>
-      heyoo
+      { props.listchoice }
     </div>
   )
 }

@@ -5,7 +5,7 @@ import ArticleList from './ArticleList';
 
 class App extends React.Component {
   state = {
-    list: ''
+    listChoice: ''
   }
 
   componentDidMount() {
@@ -16,8 +16,8 @@ class App extends React.Component {
     })
   }
 
-  updateList = () => {
-    this.setState({ list: this.state.input })
+  updateList = (props) => {
+    this.setState({ listChoice: props })
     console.log(this.state.list);
   }
 
@@ -26,7 +26,7 @@ class App extends React.Component {
     <div className="App">
       <header className="App-header">
         <Form updatelist={ this.updateList } />
-        <ArticleList />
+        <ArticleList listchoice={ this.state.listChoice } />
       </header>
     </div>
   );

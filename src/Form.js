@@ -8,13 +8,12 @@ class Form extends React.Component {
 
 updateInput = event => {
   this.setState({ input: event.target.value });
-  // console.log(this.state.input);
 }
 
-onSubmit = event => {
+onSubmit = (event) => {
   event.preventDefault();
-  this.setState({ input: event.target.value });
-  // console.log(this.state.input);
+  this.setState({ input: event.target.value })
+  this.props.updatelist(this.state.input);
   this.setState({ input: '' });
 
 }
