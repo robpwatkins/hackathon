@@ -35,9 +35,10 @@ onSubmit = (event) => {
   render() {
     return (
       <div>
+        Article Search:
         <form>
-          <input onChange={ event => this.updateInput(event) } placeholder="Search by keyword" value={this.state.query}></input>
-          <button onClick={ event => this.onSubmit(event) }>Submit</button>
+          <input onChange={ event => this.updateInput(event) } placeholder="Enter keyword" value={this.state.query}></input>
+          <button onClick={ event => this.onSubmit(event) }>Search</button>
         </form>
         <ArticleList list={this.state.list} />
       </div>
