@@ -39,18 +39,7 @@ onSubmit = (event) => {
 
   render() {
     return (
-      <div>
-        { this.state.querySubmitted ? '' :
-          <form>
-            <input onChange={ event => this.updateInput(event) } placeholder="Enter keyword" value={this.state.query}></input>
-            <button onClick={ event => this.onSubmit(event) }>Submit</button>
-          </form>
-        }
-        { this.state.querySubmitted ? 
-          <SearchBy /> : ''
-        }
-        <ArticleList list={this.state.list} />
-      </div>
+      
     );
   }
 }

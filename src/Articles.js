@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ArticleList extends React.Component {
+class Articles extends React.Component {
   state = {
     query: '',
     list: []
@@ -14,7 +14,9 @@ class ArticleList extends React.Component {
           <div key={i} className="article">
             <h3>{article.title}</h3>
             <h5>Author: {article.author}</h5>
-            <h6>{article.url}</h6>
+            <a href={article.url}>
+              <h6>{article.url}</h6>
+            </a>
           </div>
         )
       }) }
@@ -23,4 +25,4 @@ class ArticleList extends React.Component {
   }
 }
 
-export default ArticleList;
+export default Articles;
