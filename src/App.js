@@ -6,6 +6,7 @@ class App extends React.Component {
   state = {
     query: '',
     author: '',
+    date: '',
     list: [],
     querySubmitted: false,
     dropDown: '--choose--',
@@ -18,6 +19,7 @@ updateInput = event => {
 }
 
 fetchData = () => {
+  console.log(this.state.date);
   const query = this.state.query;
   const author = this.state.author;
   const byQuery = `query=${query}`;
@@ -51,6 +53,7 @@ onSubmit = (event) => {
 
 handleChange = event => {
   this.setState({ dropDown: event.target.value })
+  console.log(this.state.dropDown);
 }
 
   render () {
@@ -68,7 +71,7 @@ handleChange = event => {
         { 
           this.state.querySubmitted ? 
           <form>
-            <input name="author" onChange={event => this.updateInput(event)} placeholder={
+            <input name={this.state.dropDown} onChange={event => this.updateInput(event)} placeholder={
               this.state.dropDown === '--choose--'
               ? 'Search articles by' : `Enter ${this.state.dropDown}`
               } value={ this.state.author }>
