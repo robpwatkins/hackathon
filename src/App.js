@@ -13,6 +13,7 @@ class App extends React.Component {
   }
 
 updateInput = event => {
+  console.log(event.target.name, event.target.value);
   this.setState({ 
     [event.target.name]: event.target.value,
   });
@@ -53,7 +54,6 @@ onSubmit = (event) => {
 
 handleChange = event => {
   this.setState({ dropDown: event.target.value })
-  console.log(this.state.dropDown);
 }
 
   render () {
@@ -74,7 +74,7 @@ handleChange = event => {
             <input name={this.state.dropDown} onChange={event => this.updateInput(event)} placeholder={
               this.state.dropDown === '--choose--'
               ? 'Search articles by' : `Enter ${this.state.dropDown}`
-              } value={ this.state.author }>
+              } value={ this.state.value }>
               </input>
               <select onChange={event => this.handleChange(event)} value={this.state.value}>
                 <option>--choose--</option>
