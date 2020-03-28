@@ -18,17 +18,19 @@ updateInput = event => {
 }
 
 fetchData = () => {
+  console.log(this.state.query);
   const query = this.state.query;
+  const author= this.state.author;
   const byQuery = `query=${query}`;
-  // const byAuthor = `tags=author_${query}`;
-  // const keywordURL = `http://hn.algolia.com/api/v1/search?${byQuery}`;
-  // const authorURL = `http://hn.algolia.com/api/v1/search?query${byAuthor}`;
-  let url = `http://hn.algolia.com/api/v1/search?${byQuery}`;
-  // if (!this.state.querySubmitted) {
-  //   url = keywordURL;
-  // } else {
-  //   url = authorURL;
-  // }
+  const byAuthor = `tags=author_${author}`;
+  const queryURL = `http://hn.algolia.com/api/v1/search?${byQuery}`;
+  const authorURL = `http://hn.algolia.com/api/v1/search?${byQuery}&${byAuthor}`;
+  let url;
+  if (!this.state.querySubmitted) {
+    url = queryURL;
+  } else {
+    url = authorURL;
+  }
   fetch(url).then(response => response.json())
   .then(json => {
     // console.log(json.hits);
@@ -39,15 +41,12 @@ fetchData = () => {
 onSubmit = (event) => {
   event.preventDefault();
   this.setState({ 
-    query: event.target.value,
-    author: event.target.value,
+    [event.target.name]: event.target.value,
     querySubmitted: true
    })
-   console.log(this.state.query, this.state.author);
   this.fetchData();
   this.setState({ 
-    query: '',
-    autho: ''
+    author: ''
   });
 }
 
