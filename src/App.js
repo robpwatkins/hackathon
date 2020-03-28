@@ -6,9 +6,9 @@ class App extends React.Component {
   state = {
     query: '',
     author: '',
-    list: [],
     querySubmitted: false,
     dropDown: '--choose--',
+    list: [],
   }
 
 updateInput = event => {
@@ -18,7 +18,6 @@ updateInput = event => {
 }
 
 fetchData = () => {
-  console.log(this.state.date);
   const query = this.state.query;
   const author = this.state.author;
   const queryURL = `http://hn.algolia.com/api/v1/search?query=${query}`;
@@ -75,9 +74,9 @@ handleChange = event => {
             <input name={this.state.dropDown} onChange={event => this.updateInput(event)} placeholder={
               this.state.dropDown === '--choose--'
               ? 'Search articles by' : `Enter ${this.state.dropDown}`
-              } value={ this.state.value }>
+              } value={ this.state.author }>
               </input>
-              <select onChange={event => this.handleChange(event)} value={this.state.value}>
+              <select onChange={event => this.handleChange(event)} >
                 <option>--choose--</option>
                 <option>author</option>
                 <option>date</option>
