@@ -5,6 +5,7 @@ import Articles from './Articles';
 class App extends React.Component {
   state = {
     query: '',
+    author: '',
     list: [],
     querySubmitted: false,
     dropDown: '--choose--',
@@ -12,16 +13,25 @@ class App extends React.Component {
 
 updateInput = event => {
   this.setState({ 
-    query: event.target.value,
-    dropDown: event.target.value
+    [event.target.name]: event.target.value,
   });
 }
 
 fetchData = () => {
   const query = this.state.query;
-  const url = `http://hn.algolia.com/api/v1/search?query=${query}`;
+  const byQuery = `query=${query}`;
+  // const byAuthor = `tags=author_${query}`;
+  // const keywordURL = `http://hn.algolia.com/api/v1/search?${byQuery}`;
+  // const authorURL = `http://hn.algolia.com/api/v1/search?query${byAuthor}`;
+  let url = `http://hn.algolia.com/api/v1/search?${byQuery}`;
+  // if (!this.state.querySubmitted) {
+  //   url = keywordURL;
+  // } else {
+  //   url = authorURL;
+  // }
   fetch(url).then(response => response.json())
   .then(json => {
+    // console.log(json.hits);
     this.setState({ list: [...json.hits] })
   })
 }
@@ -30,15 +40,20 @@ onSubmit = (event) => {
   event.preventDefault();
   this.setState({ 
     query: event.target.value,
+    author: event.target.value,
     querySubmitted: true
    })
+   console.log(this.state.query, this.state.author);
   this.fetchData();
-  this.setState({ query: '' });
+  this.setState({ 
+    query: '',
+    autho: ''
+  });
 }
 
-// handleChange = event => {
-//   this.setState({ dropDown: event.target.value })
-// }
+handleChange = event => {
+  this.setState({ dropDown: event.target.value })
+}
 
   render () {
   return (
@@ -47,7 +62,7 @@ onSubmit = (event) => {
         { 
           this.state.querySubmitted ? '' :
           <form>
-            <input onChange={ event => this.updateInput(event) } placeholder="Enter keyword" value={this.state.query}></input>
+            <input name="query" onChange={ event => this.updateInput(event) } placeholder="Enter keyword" value={this.state.query}></input>
             <button onClick={ event => this.onSubmit(event) }>Submit</button>
           </form>
         }
@@ -55,12 +70,12 @@ onSubmit = (event) => {
         { 
           this.state.querySubmitted ? 
           <form>
-            <input onChange={this.updateInput} placeholder={
+            <input name="author" onChange={event => this.updateInput(event)} placeholder={
               this.state.dropDown === '--choose--'
               ? 'Search articles by' : `Enter ${this.state.dropDown}`
-              } value={ this.state.query }>
+              } value={ this.state.author }>
               </input>
-              <select onChange={this.updateInput} value={this.state.value}>
+              <select onChange={event => this.handleChange(event)} value={this.state.value}>
                 <option>--choose--</option>
                 <option>author</option>
                 <option>date</option>
