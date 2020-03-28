@@ -6,7 +6,6 @@ class App extends React.Component {
   state = {
     query: '',
     author: '',
-    date: '',
     list: [],
     querySubmitted: false,
     dropDown: '--choose--',
