@@ -11,55 +11,54 @@ class App extends React.Component {
     list: [],
   }
 
-updateInput = event => {
-  this.setState({ 
-    [event.target.name]: event.target.value,
-  });
-}
-
-fetchData = () => {
-  const query = this.state.query;
-  const author = this.state.author;
-  const queryURL = `http://hn.algolia.com/api/v1/search?query=${query}`;
-  const authorURL = `${queryURL}&tags=author_${author}`;
-  const dateURL = `http://hn.algolia.com/api/v1/search_by_date?query=${query}`;
-  let url;
-  if (this.state.dropDown === '--choose--') {
-    url = queryURL;
-  } else {
-    if (this.state.dropDown === 'author') {
-    url = authorURL;
-    } else {
-      url = dateURL;
-      console.log(this.state.list);
-    }
+  updateInput = event => {
+    this.setState({ 
+      [event.target.name]: event.target.value,
+    });
   }
-  fetch(url).then(response => response.json())
-  .then(json => {
-    this.setState({ list: [...json.hits] })
-  })
-}
 
-onSubmit = (event) => {
-  event.preventDefault();
-  this.setState({ 
-    [event.target.name]: event.target.value,
-    querySubmitted: true
-   })
-  this.fetchData();
-  this.setState({ 
-    author: ''
-  });
-}
+  fetchData = () => {
+    const query = this.state.query;
+    const author = this.state.author;
+    const queryURL = `http://hn.algolia.com/api/v1/search?query=${query}`;
+    const authorURL = `${queryURL}&tags=author_${author}`;
+    const dateURL = `http://hn.algolia.com/api/v1/search_by_date?query=${query}`;
+    let url;
+    if (this.state.dropDown === '--choose--') {
+      url = queryURL;
+    } else {
+      if (this.state.dropDown === 'author') {
+      url = authorURL;
+      } else {
+        url = dateURL;
+        console.log(this.state.list);
+      }
+    }
+    fetch(url).then(response => response.json())
+    .then(json => {
+      this.setState({ list: [...json.hits] })
+    })
+  }
 
-handleChange = event => {
-  this.setState({ dropDown: event.target.value })
-}
+  onSubmit = (event) => {
+    event.preventDefault();
+    this.setState({ 
+      [event.target.name]: event.target.value,
+      querySubmitted: true
+    })
+    this.fetchData();
+    this.setState({ 
+      author: ''
+    });
+  }
+
+  handleChange = event => {
+    this.setState({ dropDown: event.target.value })
+  }
 
   render () {
-  return (
-    <div className="App">
-      <div>
+    return (
+      <div className="App">
         { 
           !this.state.querySubmitted &&
           <form>
@@ -67,7 +66,6 @@ handleChange = event => {
             <button onClick={ event => this.onSubmit(event) }>Submit</button>
           </form>
         }
-      <div>
         { 
           this.state.querySubmitted && 
           <form>
@@ -84,11 +82,9 @@ handleChange = event => {
               <button onClick={event => this.onSubmit(event)}>Submit</button>
           </form>
         }
-      </div>
         <Articles list={this.state.list} />
       </div>
-    </div>
-  );
+    );
   }
 }
 
