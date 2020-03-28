@@ -18,9 +18,8 @@ updateInput = event => {
 }
 
 fetchData = () => {
-  console.log(this.state.query);
   const query = this.state.query;
-  const author= this.state.author;
+  const author = this.state.author;
   const byQuery = `query=${query}`;
   const byAuthor = `tags=author_${author}`;
   const queryURL = `http://hn.algolia.com/api/v1/search?${byQuery}`;
