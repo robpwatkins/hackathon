@@ -13,7 +13,6 @@ class App extends React.Component {
   }
 
 updateInput = event => {
-  console.log(event.target.name, event.target.value);
   this.setState({ 
     [event.target.name]: event.target.value,
   });
@@ -23,19 +22,22 @@ fetchData = () => {
   console.log(this.state.date);
   const query = this.state.query;
   const author = this.state.author;
-  const byQuery = `query=${query}`;
-  const byAuthor = `tags=author_${author}`;
-  const queryURL = `http://hn.algolia.com/api/v1/search?${byQuery}`;
-  const authorURL = `http://hn.algolia.com/api/v1/search?${byQuery}&${byAuthor}`;
+  const queryURL = `http://hn.algolia.com/api/v1/search?query=${query}`;
+  const authorURL = `${queryURL}&tags=author_${author}`;
+  const dateURL = `http://hn.algolia.com/api/v1/search_by_date?query=${query}`;
   let url;
-  if (!this.state.querySubmitted) {
+  if (this.state.dropDown === '--choose--') {
     url = queryURL;
   } else {
+    if (this.state.dropDown === 'author') {
     url = authorURL;
+    } else {
+      url = dateURL;
+      console.log(this.state.list);
+    }
   }
   fetch(url).then(response => response.json())
   .then(json => {
-    // console.log(json.hits);
     this.setState({ list: [...json.hits] })
   })
 }
@@ -61,7 +63,7 @@ handleChange = event => {
     <div className="App">
       <div>
         { 
-          this.state.querySubmitted ? '' :
+          !this.state.querySubmitted &&
           <form>
             <input name="query" onChange={ event => this.updateInput(event) } placeholder="Enter keyword" value={this.state.query}></input>
             <button onClick={ event => this.onSubmit(event) }>Submit</button>
@@ -69,7 +71,7 @@ handleChange = event => {
         }
       <div>
         { 
-          this.state.querySubmitted ? 
+          this.state.querySubmitted && 
           <form>
             <input name={this.state.dropDown} onChange={event => this.updateInput(event)} placeholder={
               this.state.dropDown === '--choose--'
@@ -82,8 +84,7 @@ handleChange = event => {
                 <option>date</option>
               </select>
               <button onClick={event => this.onSubmit(event)}>Submit</button>
-          </form> 
-          : '' 
+          </form>
         }
       </div>
         <Articles list={this.state.list} />
