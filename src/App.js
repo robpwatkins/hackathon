@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
 import Articles from './Articles';
-import SearchBy from './SearchBy';
 
 class App extends React.Component {
   state = {
     query: '',
     list: [],
-    querySubmitted: false,
-    keywordSubmitted: false
+    querySubmitted: false
   }
 
 updateInput = event => {
@@ -50,7 +48,7 @@ queryByAuthorDate = props => {
           </form>
         }
       <div>
-        { this.state.querySubmitted ? '' :
+        { this.state.querySubmitted ? 
           <form>
           <input onChange={this.updateInput} placeholder={
             this.state.dropDown === '--choose--'
@@ -63,7 +61,7 @@ queryByAuthorDate = props => {
               <option>date</option>
             </select>
             <button onClick={event => this.onSubmit(event)}>Submit</button>
-        </form>
+        </form> : ''
         }
       </div>
         <Articles list={this.state.list} />
