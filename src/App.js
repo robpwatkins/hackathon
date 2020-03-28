@@ -6,11 +6,15 @@ class App extends React.Component {
   state = {
     query: '',
     list: [],
-    querySubmitted: false
+    querySubmitted: false,
+    dropDown: '--choose--',
   }
 
 updateInput = event => {
-  this.setState({ query: event.target.value });
+  this.setState({ 
+    query: event.target.value,
+    dropDown: event.target.value
+  });
 }
 
 fetchData = () => {
@@ -32,36 +36,38 @@ onSubmit = (event) => {
   this.setState({ query: '' });
 }
 
-queryByAuthorDate = props => {
-  this.setState({ query: props })
-  this.fetchData();
-}
+// handleChange = event => {
+//   this.setState({ dropDown: event.target.value })
+// }
 
   render () {
   return (
     <div className="App">
       <div>
-        { this.state.querySubmitted ? '' :
+        { 
+          this.state.querySubmitted ? '' :
           <form>
             <input onChange={ event => this.updateInput(event) } placeholder="Enter keyword" value={this.state.query}></input>
             <button onClick={ event => this.onSubmit(event) }>Submit</button>
           </form>
         }
       <div>
-        { this.state.querySubmitted ? 
+        { 
+          this.state.querySubmitted ? 
           <form>
-          <input onChange={this.updateInput} placeholder={
-            this.state.dropDown === '--choose--'
-            ? 'Search articles by' : `Enter ${this.state.dropDown}`
-            } value={ this.state.query }>
-            </input>
-            <select onChange={this.handleChange} value={this.state.value}>
-              <option>--choose--</option>
-              <option>author</option>
-              <option>date</option>
-            </select>
-            <button onClick={event => this.onSubmit(event)}>Submit</button>
-        </form> : ''
+            <input onChange={this.updateInput} placeholder={
+              this.state.dropDown === '--choose--'
+              ? 'Search articles by' : `Enter ${this.state.dropDown}`
+              } value={ this.state.query }>
+              </input>
+              <select onChange={this.updateInput} value={this.state.value}>
+                <option>--choose--</option>
+                <option>author</option>
+                <option>date</option>
+              </select>
+              <button onClick={event => this.onSubmit(event)}>Submit</button>
+          </form> 
+          : '' 
         }
       </div>
         <Articles list={this.state.list} />
