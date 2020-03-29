@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import Articles from './Articles';
+import TestForm from './TestForm';
 
 class App extends React.Component {
   state = {
@@ -9,6 +10,7 @@ class App extends React.Component {
     querySubmitted: false,
     dropDown: '--choose--',
     list: [],
+    test: ''
   }
 
   updateInput = event => {
@@ -56,6 +58,17 @@ class App extends React.Component {
     this.setState({ dropDown: event.target.value })
   }
 
+  testUpdate = props => {
+    this.setState({ test: props });
+    // console.log(this.state.test);
+  }
+
+  testSubmit = props => {
+    props.preventDefault();
+    this.setState ({ test: props.target.value })
+    console.log(this.state.test);
+  }
+
   render () {
     return (
       <div className="App">
@@ -66,6 +79,7 @@ class App extends React.Component {
             <button onClick={ event => this.onSubmit(event) }>Submit</button>
           </form>
         }
+        <TestForm testupdate={this.testUpdate} testsubmit={this.testSubmit}/>
         { 
           this.state.querySubmitted && 
           <form>
